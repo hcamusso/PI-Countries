@@ -1,0 +1,9 @@
+.color {
+   color: aliceblue;
+
+  }
+  .conteinerCards{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+}

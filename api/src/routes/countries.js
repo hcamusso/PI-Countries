@@ -16,24 +16,25 @@ router.use(express.json())
 //   - Si no existe ningún país mostrar un mensaje adecuado
 router.get("/", async (req, res) => {
 const { name } = req.query;
-    console.log(name)
+    
     try {
         if(name) {
-            console.log('dentro ')
+            
             let pais = await Countries.findAll({
-                order:[["idCountry"]],
+                order:[["name"]],
                 where: {
                   name: {
                     [Op.iLike]: `%${name}%`,
                   },
                 },
-                
+                include: {model: Activities},
               });
            
             return res.status(201).json(pais);
         }
         const paises = await Countries.findAll({
-          order:[["idCountry"]]
+          order:[["name"]],
+          include: {model: Activities},
         });
        console.log('ruta listCountries')
        return res.status(200).json(paises)

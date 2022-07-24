@@ -35,7 +35,16 @@ router.post('/', async (req, res, next) => {
 
 // -GET /activity__:
 // Devuelve todas las actividades
-// router.get('/', async (req, res) => {})
+router.get('/', async (req, res) => {
+    try {
+        const activities = await Activities.findAll({
+            order:[["name"]]
+        });
+        return res.status(200).json(activities)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+});
 // -DELETE/activity params
 // Elimina una actividad que viene solicitada por params.
 // router.delete('/:name/delete', (req, res) => {})
