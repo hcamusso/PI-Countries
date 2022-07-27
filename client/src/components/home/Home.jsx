@@ -7,6 +7,7 @@ import { getCountries, getActivities, oderCountries, filterCountriesByContinent,
 import style from './home.module.css'
 import Card from '../card/Card'
 import Paginado from '../paginado/Paginado'
+import SearchCountry from '../searchCountry/SearchCountry'
 
 
 export default function Home() {
@@ -35,11 +36,6 @@ export default function Home() {
     },[dispatch])//este segundo parametro es por si necesito dependencias
     
 
-    function handleClick(e){//carga nuevamente todos los paises
-      e.preventDefault();
-      setCurrentPage(1);
-      dispatch(getCountries());
-    }
     function handleOrder(e){//manejador del ordenamiento
       e.preventDefault();
       setCurrentPage(1);
@@ -58,11 +54,10 @@ export default function Home() {
   return (
     <div>
         <h1 className={style.color}>COUNTRIES</h1>
-        <Link to='/activity' className={style.color}>create tourist activity</Link>
-        {/* boton para cargar todos los paises */}
-        <button onClick={e=> {handleClick(e)}}>
-          Charge all Countries
-        </button>
+        {/* Componente para buscar un pais */}
+        <SearchCountry />
+        <Link to='/createactivity' className={style.color}>create tourist activity</Link>
+
 
         <div>
           {/* ordenamiento */}
@@ -72,6 +67,8 @@ export default function Home() {
             <option value='popAsc'>Population in ascending order</option>
             <option value='popDesc'>Population in descending order</option>
           </select>
+        </div>
+        <div>
           {/* filtrado  por continente */}
           <select onChange={e => handleFilterContinent(e)}>
             <option value='all'>All Continents</option>
@@ -82,6 +79,7 @@ export default function Home() {
             <option value='Europe'>Europa</option>
             <option value='Oceania'>Oceania</option>
           </select>
+        </div>  
          {/* filtrado por actividad  */}
       <div>
         <select onChange={(e) => handleFilterActivity(e)}>
@@ -92,12 +90,12 @@ export default function Home() {
 
       </div>  
     
-
+      <div>
           <Paginado 
           countriesPerPage={countriesPerPage}
           allCountries={allCountries.length}
           paginate = {paginate}/>
-        </div>
+      </div>
 
 
     {/* //renderiza las Card de cada pais */}

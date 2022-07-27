@@ -1,6 +1,7 @@
 const initialState = {
     countries : [],
     filteredCountries : [],
+    countryDetail: [],
     activities : []
    }
   
@@ -16,6 +17,16 @@ function  rootReducer (state = initialState, action) {
                 ...state,
                 countries: action.payload,
                 filteredCountries: action.payload
+            }
+        case 'GET_COUNTRIES_BY_NAME':
+            return {
+                ...state,
+                filteredCountries: action.payload
+            }
+        case 'GET_DETAIL':
+            return {
+                ...state,
+                countryDetail: action.payload
             }
         case 'ORDER_COUNTRIES':
             const allCountriesOrder = state.countries
@@ -33,8 +44,7 @@ function  rootReducer (state = initialState, action) {
                 if(a.population > b.population) return -1
                 if(a.population < b.population) return 1
             })
-            console.log('allCountriesOrder',allCountriesOrder)
-            console.log('orderedCountries',orderedCountries)
+
             return({
                 ...state,
                 countries: orderedCountries,
