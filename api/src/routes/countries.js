@@ -36,7 +36,6 @@ const { name } = req.query;
           order:[["name"]],
           include: {model: Activities},
         });
-       console.log('ruta listCountries')
        return res.status(200).json(paises)
     } catch (error) {
         res.status(400).send(error)

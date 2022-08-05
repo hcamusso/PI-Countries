@@ -21,12 +21,11 @@ router.post('/', async (req, res, next) => {
             if (foundCountry) newActivity.addCountries(foundCountry);
         });
 
-        res.status(202).send("La actividad ha sido creada exitosamente");
+        res.status(202).json(newActivity);
     } catch (error) {
-        const {severity, code, detail} = error.parent
+        const {severity, detail} = error.parent
+            return res.status(500).json({msg:"ERROR: la actividad no fue creada."+ detail})
 
-       
-        res.status(400).send({severity, code, detail})
     }
 
 })

@@ -3,7 +3,7 @@ const server = require('./src/app.js');
 const { conn, Countries} = require('./src/db.js');
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {//crea las tablas si no existen o no hace nada si ya existe. con force true elimina la tabla y la vuelve a crear, 
+conn.sync({ force: true }).then(() => {//crea las tablas si no existen o no hace nada si ya existe. con force true elimina la tabla y la vuelve a crear, 
   //con alter true aplica los cambios necesarios a la tabla para que coincida con el modelo, no borra los datos!
   server.listen(3001, async () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console.
