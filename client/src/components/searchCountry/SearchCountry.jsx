@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
 import { getCountries, getCountriesByName } from '../../actions/index'
+import style from './searchCountry.module.css'
 
 export default function SearchCountry() {
   const dispatch = useDispatch()
@@ -30,16 +31,16 @@ export default function SearchCountry() {
   }
 
   return (
-        <form>
-          <input
+        <form className={style.search}>
+          <input className={style.input}
             type="text"
             placeholder="Search Country..."
             value={country}
             onChange={handleChange}
           />
-          <button type="Submit" onClick={handleSubmit}> Search Country </button>
+          <button className={style.searchCountry} type="Submit" onClick={handleSubmit} > Search Country </button>
           {/* boton para cargar todos los paises */}
-          <button onClick={e=> {handleChargeAllCountries(e)}}> Charge all Countries </button>
+          <button className={style.allCountries} onClick={e=> {handleChargeAllCountries(e)}} > Charge all Countries </button>
         </form>
       );
   

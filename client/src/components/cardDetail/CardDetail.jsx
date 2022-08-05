@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Link,useParams } from 'react-router-dom'
 
 import { getDetail } from '../../actions/index'
+import style from './cardDetail.module.css'
 
 export default function CardDetail(props) {
 
@@ -41,23 +42,23 @@ export default function CardDetail(props) {
   return (
     <div>
     <Link to={'/home'}>
-        <button>Back to home</button>
+        <button className={style.btnBack}>Back to home</button>
     </Link>
 
 
         <div>
-                <div key={countryDetail.idCountry} >
-                    <img src={countryDetail.imagen} alt="bandera" />
+                <div className={style.detailCard} key={countryDetail.idCountry} >
+                    <img className={style.flag} src={countryDetail.imagen} alt="flag" />
                     <h2>{countryDetail.name}</h2>
                     <h3>Code: {countryDetail.idCountry}</h3>
                     <h3>Continent: {countryDetail.continent}</h3>
                     <h3>Capital: {countryDetail.capital}</h3>
                     <h3>Subregion: {countryDetail.subregion}</h3>
-                    <h3>Area: {countryDetail.area} km2</h3>
-                    <h3>Population: {countryDetail.population} inhabitants</h3>
+                    <h3>Area: {new Intl.NumberFormat().format(countryDetail.area)} km2</h3>
+                    <h3>Population: {new Intl.NumberFormat().format(countryDetail.population)} inhabitants</h3>
 
                     {countryDetail.activities?.map(e => 
-                    <div key={countryDetail.idPais} >
+                    <div className={style.activities} key={countryDetail.idPais} >
                         <h4><u>Tourist activity</u> {e.name}</h4>
                         <h5><u>Difficulty:</u> {e.dificultad}</h5>
                         <h5><u>Duration:</u> {e.duracion} hours</h5>
@@ -67,7 +68,7 @@ export default function CardDetail(props) {
                 </div>
         </div>
     <Link to={'/home'}>
-        <button>Back to home</button>
+        <button className={style.btnBack}>Back to home</button>
     </Link>
 </div>
   )

@@ -1,17 +1,43 @@
-body {
-    /* background-image:url("../../images/pexelsphoto365633.jpeg"); */
-    background-color: gray;
-    background-size: cover;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-repeat: no-repeat;
-     }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap');
+.main{
+  width: 100%;
+  height: 100vh;
+  background-image: url('https://images.pexels.com/photos/6220559/pexels-photo-6220559.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+ 
+}
   
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
+ .tittle{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      padding-top: 150px;
+      font-size: 70px;
+      text-shadow: rgba(4, 54, 203, 0.716) 3px 3px 3px;
+      color: white;
+      font-family: 'Noto Serif', serif;
+      
+}
+
+.enter{
+    width: 200px;
+    height: 80px;
+    
+    color:  rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(2px);
+    border-radius: 15px 0px  15px 0px;
+    transition: all 0.2s ease;
+    font-family: 'Noto Serif', serif;
+    font-size: 30px;
+    cursor: pointer;
+}
+.enter:hover{
+    transform: translateY(-5px);
+    transition: all 0.2s ease;
+    background-color: rgba(101, 124, 239, 0.469);
+}

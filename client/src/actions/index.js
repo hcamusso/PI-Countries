@@ -12,6 +12,12 @@ export function getCountries() {
 export function getCountriesByName(country){
     return async function (dispatch) {
         var json = await axios.get(`http://localhost:3001/countries/?name=${country}`);
+            if(json.data.length === 0) {
+                return alert('The country with these search data does not exist')
+                
+            }
+
+       
         return dispatch({
             type:'GET_COUNTRIES_BY_NAME',
             payload: json.data
@@ -30,13 +36,13 @@ export function getDetail(id){
 export function oderCountries(payload){
     return {
         type: 'ORDER_COUNTRIES',
-        payload
+        payload: payload
     }
 }
 export function filterCountriesByContinent(payload){
     return {
         type: 'FILTER_COUNTRIES_BY_CONTINENT',
-        payload
+        payload: payload
     }
 }
 // todas las actividades
@@ -53,14 +59,30 @@ export function getActivities(){
 export function filterCountriesByActivity(payload){
     return {
         type: 'FILTER_COUNTRIES_BY_ACTIVITY',
-        payload
+        payload: payload
     }
 }
 // creacion de actividades 
 export function postActivity(payload){
     return async function(dispatch){
-        const {data}= await axios.post('http://localhost:3001/activity',payload);
-        console.log (data);
-        return data;
+        try {
+            var json= await axios.post('http://localhost:3001/activity',payload);
+            alert(`The activity ${json.data.name}, was created`) 
+            return dispatch ({
+                type: 'POST_ACTIVITIES',
+                payload: json.data
+            })
+            
+        } catch (error) {
+            alert(`ERROR: The activity was not created ${error.response.data.msg}`)
+        }
+
     }
+ }
+ // borrar cache de activities
+ export function cleanCacheActivity(){
+    return ({
+        type: 'CLEAN_CACHE_ACTIVITY'
+    })
+    
  }
