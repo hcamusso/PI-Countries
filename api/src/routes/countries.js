@@ -29,8 +29,13 @@ const { name } = req.query;
                 },
                 include: {model: Activities},
               });
-           
-            return res.status(201).json(pais);
+              if(pais.length > 0){
+                  return res.status(201).json(pais);
+
+              } else {
+
+                  return res.status(501).json({msg:"ERROR: no existe un país con ese nombre"});
+              }
         }
         const paises = await Countries.findAll({
           order:[["name"]],
