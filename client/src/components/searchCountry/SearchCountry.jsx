@@ -16,7 +16,10 @@ export default function SearchCountry() {
     // setCurrentPage(1);
     try {
       if (country.length) {
-        dispatch(getCountriesByName(country));
+        
+         dispatch(getCountriesByName(country));
+         setCountry('');
+
       } else {
         alert('You must write a name of a country')
       }
@@ -26,7 +29,7 @@ export default function SearchCountry() {
   }
   function handleChargeAllCountries(e){//carga nuevamente todos los paises
     e.preventDefault();
-    // setCurrentPage(1);
+
     dispatch(getCountries());
   }
 
@@ -40,7 +43,12 @@ export default function SearchCountry() {
           />
           <button className={style.searchCountry} type="Submit" onClick={handleSubmit} > Search Country </button>
           {/* boton para cargar todos los paises */}
-          <button className={style.allCountries} onClick={e=> {handleChargeAllCountries(e)}} > Charge all Countries </button>
+          
+
+            <button className={style.allCountries} onClick={handleChargeAllCountries}> Charge all Countries </button>
+
+
+   
         </form>
       );
   

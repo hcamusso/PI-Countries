@@ -20,7 +20,7 @@ export default function Home() {
     if (orden) {}//uso orden en un if que no hace nada solo para que no tire el warning
    //creamos estados locales para paginado
     const [currentPage,setCurrentPage]=useState(1)
-    const [countriesPerPage,setCountriesPerPage]=useState(10)// OJO para la primer pagina solo mostrar 9, no 10.
+    const [countriesPerPage]=useState(10)// OJO para la primer pagina solo mostrar 9, no 10.
 
 
       let offSet =(currentPage - 1) * countriesPerPage + 9 //9, 19,29,39,49
@@ -32,43 +32,37 @@ export default function Home() {
     const currentCountries = allCountries.slice(indexOfFirstCountry,offSet) //el arreglo de los paises de la pagina actual
     const paginate = (pageNumber) => (setCurrentPage(pageNumber))//le pasa el valor al estado local de la pagina actual
     //cuando el componente se monta, traigo todos los paises y todas las actividades.
-    const [countriesMonted,setCountriesMonted] = useState () 
+    
     useEffect(() => {
-      
-      dispatch(getCountries());
-      setCountriesMonted('true');
-      
+        dispatch(getActivities()).then(dispatch(getCountries()))
 
+    
     },[dispatch])//este segundo parametro es por si necesito dependencias
 
-      useEffect(() => {
-
-      dispatch(getActivities());
-
-      document.getElementById("orderBy").selectedIndex = 0;
-      document.getElementById("filterContinent").selectedIndex = 0;
-      document.getElementById("filterActivity").selectedIndex = 0;
-  
-    },[dispatch,countriesMonted])//este segundo parametro es por si necesito dependencias
-    
-
+ //set selectedIndex to 0 when component mounts
+    useEffect(() => {
+        document.getElementById("orderBy").selectedIndex = 0;
+        document.getElementById("filterContinent").selectedIndex = 0;
+        document.getElementById("filterActivity").selectedIndex = 0;
+    } ,[allCountries])  
 
     function handleOrder(e){//manejador del ordenamiento
       e.preventDefault();
       if (e.target.value !== "0") {
       
-        document.getElementById("filterContinent").selectedIndex = 0;
-        document.getElementById("filterActivity").selectedIndex = 0;
+        // document.getElementById("filterContinent").selectedIndex = 0;
+        // document.getElementById("filterActivity").selectedIndex = 0;
         setCurrentPage(1);
         dispatch(oderCountries(e.target.value));
         setOrden(`${e.target.value}`);
       }
     }
+
     function handleFilterContinent(e){//despacha la accion para filtrar paises por continente
       e.preventDefault();
       if (e.target.value !== "0") {
-        document.getElementById("orderBy").selectedIndex = 0;
-        document.getElementById("filterActivity").selectedIndex = 0;
+        // document.getElementById("orderBy").selectedIndex = 0;
+        // document.getElementById("filterActivity").selectedIndex = 0;
         setCurrentPage(1);
         dispatch(filterCountriesByContinent(e.target.value));
         setOrden(`${e.target.value}`);
@@ -78,13 +72,19 @@ export default function Home() {
     function handleFilterActivity(e){//despacha la accion para filtrar por actividad
       e.preventDefault();
       if (e.target.value !== "0") {
-        document.getElementById("orderBy").selectedIndex = 0;
-        document.getElementById("filterContinent").selectedIndex = 0;
-
+        // document.getElementById("orderBy").selectedIndex = 0;
+        // document.getElementById("filterContinent").selectedIndex = 0;
+        
         setCurrentPage(1);
+  
         dispatch(filterCountriesByActivity(e.target.value));
         setOrden(`${e.target.value}`);
       }
+    }
+    function handleChargeAllCountries(e){//carga nuevamente todos los paises
+      e.preventDefault();
+  
+      dispatch(getCountries());
     }
   return (
     <div className={style.container}>
@@ -130,19 +130,19 @@ export default function Home() {
       </div>
              
       
-      <div>
+      {currentCountries.length !== 0 && <div>
           <Paginado 
           countriesPerPage={countriesPerPage}
           allCountries={allCountries.length}
           paginate = {paginate}/>
-      </div>
+      </div>}
         
-
+                     
     {/* //renderiza las Card de cada pais */}
         <div className={style.cards}> 
-            {currentCountries && currentCountries.map ( el => {
+            {currentCountries.length >0 && currentCountries.map ( el => {
                 return(
-                <div key={el.idCountry}>
+                <div className={style.country} key={el.idCountry}>
                     <Link to={'/home/'+el.idCountry}>
                         <Card name={el.name} continent={el.continent} imagen={el.imagen}/>
                     </Link>
@@ -150,15 +150,21 @@ export default function Home() {
                 )
                 })
             }
-            {!currentCountries && alert('Not country')}
-        </div>
+            {currentCountries.length === 0 && 
+            <div> 
+              <h1>No countries found</h1> 
+              
+              <button className={style.allCountries} onClick={handleChargeAllCountries}> Charge all Countries </button>
 
-        <div>
+            </div>}       
+        </div>
+  
+        {currentCountries.length !== 0 && <div>
           <Paginado 
           countriesPerPage={countriesPerPage}
           allCountries={allCountries.length}
           paginate = {paginate}/>
-      </div>
+      </div>}
 
     </div>
   )

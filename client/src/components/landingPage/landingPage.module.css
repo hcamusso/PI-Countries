@@ -2,7 +2,8 @@
 .main{
   width: 100%;
   height: 100vh;
-  background-image: url('https://images.pexels.com/photos/6220559/pexels-photo-6220559.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  /* background-image: url('../src/images/pexelsphoto5775841.png'); */
+  /* background-image: url('https://images.pexels.com/photos/6220559/pexels-photo-6220559.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,7 +16,7 @@
       justify-content: center;
       align-items: center;
       margin: auto;
-      padding-top: 150px;
+      padding-top: 191px;
       font-size: 70px;
       text-shadow: rgba(4, 54, 203, 0.716) 3px 3px 3px;
       color: white;
@@ -35,6 +36,7 @@
     font-family: 'Noto Serif', serif;
     font-size: 30px;
     cursor: pointer;
+    
 }
 .enter:hover{
     transform: translateY(-5px);

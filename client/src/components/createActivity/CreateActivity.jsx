@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,Redirect } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
+import { Link, useHistory} from 'react-router-dom';
 import {postActivity,getCountries} from '../../actions/index';
 import {validate} from '../createActivity/validate';
 import style from './createActivity.module.css';
@@ -9,7 +9,7 @@ import style from './createActivity.module.css';
 //AQUÍ COMIENZA NUESTRO COMPONENTE.
 export default function CreateActivity() {
     const dispatch = useDispatch();
-    // const history = useHistory();
+    const history = useHistory();
     const allCountries = useSelector((state) => state.countries)
     const [input, setInput] = useState({
         name: "",
@@ -25,7 +25,8 @@ export default function CreateActivity() {
         temporada: "",
         countries:[]
     });
-    const [created,setCreated] = useState()
+    // const [created,setCreated] = useState()
+    // let created = false
 
 //manejadores de los inputs
     function handleChange(e) {
@@ -79,7 +80,6 @@ export default function CreateActivity() {
                 
             try {
                 dispatch(postActivity(input))
-                
                 setInput({
                     name: "",
                     dificultad: "",
@@ -87,10 +87,12 @@ export default function CreateActivity() {
                     temporada: "",
                     countries:[]
                 })
-                //redijirnos al home
-                setCreated('true')
 
-                // history.push('/home');
+                setErrors(validate({
+                    ...input,
+                }))
+                history.go('/createactivity')
+   
 
             } catch (error) {
                 alert('The activity was not created, there are errors in the load',{errors})
@@ -166,8 +168,8 @@ export default function CreateActivity() {
                 <ul><li>{input.countries.map(el => el + ", ")}</li></ul>
                 <button disabled= {!errors.name && !errors.dificultad && !errors.duracion && !errors.temporada && !errors.countries? false : true} type='submit'>Create Tourist Activity</button>
                 
+            {/* {created && <Redirect to={'/home'}/>} */}
             </form>
-            {created && <Redirect to={'/home'}/>}
         </div>
     )
 }

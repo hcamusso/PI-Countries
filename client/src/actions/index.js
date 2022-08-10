@@ -1,5 +1,10 @@
 import axios from 'axios'
+// voy a transformar la accion getCountries en 3 acciones> una accion para comenzar el get, una accion para informar que se termino y una accion para
+// informar q fallo
 
+export function startGetCountries(){
+
+}
 export function getCountries() {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/countries');
@@ -11,17 +16,18 @@ export function getCountries() {
 }
 export function getCountriesByName(country){
     return async function (dispatch) {
-        var json = await axios.get(`http://localhost:3001/countries/?name=${country}`);
-            if(json.data.length === 0) {
-                return alert('The country with these search data does not exist')
-                
-            }
-
-       
-        return dispatch({
-            type:'GET_COUNTRIES_BY_NAME',
-            payload: json.data
-        })
+        try {
+            
+            var json = await axios.get(`http://localhost:3001/countries/?name=${country}`);
+            console.log(json.data.length)
+     
+            return dispatch({
+                type:'GET_COUNTRIES_BY_NAME',
+                payload: json.data
+            })
+        } catch (error) {
+            alert(`ERROR: Not exist a country ${error.response.data.msg}`)
+        }
     }
 }
 export function getDetail(id){
@@ -32,6 +38,12 @@ export function getDetail(id){
             payload: json.data
         })
     }
+}
+
+export function dismountDetail(){
+    return ({
+        type:'DISMOUNT_DETAIL'
+    })
 }
 export function oderCountries(payload){
     return {

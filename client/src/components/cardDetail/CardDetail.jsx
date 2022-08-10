@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link,useParams } from 'react-router-dom'
 
-import { getDetail } from '../../actions/index'
+import { getDetail,dismountDetail } from '../../actions/index'
 import style from './cardDetail.module.css'
 
 export default function CardDetail(props) {
@@ -14,6 +14,10 @@ export default function CardDetail(props) {
    
     useEffect(() => {
         dispatch(getDetail(id))
+        return() => {
+            dispatch(dismountDetail())
+        }
+
     }, [dispatch,id])
 
     if(!countryDetail){

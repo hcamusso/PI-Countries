@@ -8,10 +8,10 @@ export default function LandingPage() {
     <div className={style.main}>
       <Link to='/home'>
         <div>
-            <h1 className={style.tittle}>
-            Countries of the WORLD 
-            </h1>
             <button className={style.enter}>Enter</button>
+            <h1 className={style.tittle}>
+            Countries of the 
+            </h1>
         </div>
       </Link>
     </div>

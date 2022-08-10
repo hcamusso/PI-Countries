@@ -3,7 +3,8 @@
 .container {
 
    background-color: rgba(243, 7, 7, 0.074);
-
+   background-image: url('https://images.pexels.com/photos/6220559/pexels-photo-6220559.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') ;
+   background-repeat: no-repeat, no-repeat;
 }
 
 .titulo {
@@ -104,8 +105,44 @@
    background-color: rgba(0, 128, 0, 0.634);
    color: white;
 }
-  .cards{
+
+
+
+.cards{
    display: flex;
    flex-wrap: wrap;
    justify-content: space-around;
+}
+
+.country{
+  
+ color:white;
+text-decoration: none;
+
+
+
+}
+
+h5{
+   color: white;
+  
+   font-family: 'Noto Serif', serif;
+}
+.allCountries{
+   height: 30px;
+   width: 200px;
+
+   border-radius: 10px;
+   cursor: pointer;
+   margin-left: 25px;
+   background-color: rgba(228, 228, 228, 0.939);
+}
+.allCountries:hover{
+   transform: scale(0.9);
+   font-weight: 700;
+   background-color: rgb(109, 109, 237);
+}
+
+.allCountries:focus{
+   background-color: rgba(37, 241, 5, 0.406);
 }
