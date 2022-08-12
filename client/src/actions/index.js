@@ -51,10 +51,11 @@ export function oderCountries(payload){
         payload: payload
     }
 }
-export function filterCountriesByContinent(payload){
+export function filterCountriesByContinent(value, filteredByContinent, filteredByActivity){
+    console.log('action', value, filteredByContinent, filteredByActivity)
     return {
         type: 'FILTER_COUNTRIES_BY_CONTINENT',
-        payload: payload
+        payload: {value, filteredByContinent, filteredByActivity}
     }
 }
 // todas las actividades
@@ -68,10 +69,10 @@ export function getActivities(){
         })
     }
 }
-export function filterCountriesByActivity(payload){
+export function filterCountriesByActivity(value, filteredByContinent, filteredByActivity){
     return {
         type: 'FILTER_COUNTRIES_BY_ACTIVITY',
-        payload: payload
+        payload: {value, filteredByContinent, filteredByActivity}
     }
 }
 // creacion de actividades 
@@ -98,3 +99,20 @@ export function postActivity(payload){
     })
     
  }
+ //dispatch(deleteActivity())
+    export function deleteActivity(idCountry,ID){
+        return async function(dispatch){
+            try {
+                var json= await axios.delete(`http://localhost:3001/activity/${idCountry}/${ID}`);
+                alert(`The activity of ${json.data.name}, was deleted`) 
+                return dispatch ({
+                    type: 'DELETE_ACTIVITY',
+                    payload: json.data
+                })
+                
+            } catch (error) {
+                alert(`ERROR: The activity was not deleted ${error.response.data.msg}`)
+            }
+
+        }
+     }

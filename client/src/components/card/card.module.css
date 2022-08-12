@@ -10,12 +10,13 @@ a:-webkit-any-link {
 }
 
 .cards{
-    padding: 10px;
-    width: 500px;
-    height: 450px;
+    padding: 5px;
+    width: 300px;
+    height: 330px;
     border: solid 1px rgba(202, 202, 202, 0.127);
     border-radius: 15px 15px  15px 15px;
     margin-top: 20px;
+    margin-left: 30px;
     background-color: rgba(224, 224, 224, 0.066);
     backdrop-filter: blur(5px);
     transition: all 0.2s ease;
@@ -40,16 +41,16 @@ a:-webkit-any-link {
 }
 
 .cards img{
-    margin-top: 10px;
+    margin-top: 1px;
     width: 300px;
-    height: 200px;  
+    height: 180px;
     border-radius: 10px;  
 }
 
 .cards h3{
     text-transform: uppercase;
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     
     color: white;
     text-shadow: black 2px 2px 2px;
@@ -61,7 +62,7 @@ a:-webkit-any-link {
 
 .cards h5{
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
     color: white;
     text-shadow: black 2px 2px 2px;
     text-decoration: none;

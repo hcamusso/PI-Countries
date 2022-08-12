@@ -12,7 +12,7 @@ test('renders content', () => {
   )
 
   expect(component.container).toHaveTextContent(
-    'Countries of the '
+    'EnterCountries of the'
   )
 
   component.debug()

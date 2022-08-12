@@ -48,14 +48,8 @@ function  rootReducer (state = initialState, action) {
         //     document.getElementById("orderBy").selectedIndex = 0;
         // document.getElementById("filterContinent").selectedIndex = 0;
         // document.getElementById("filterActivity").selectedIndex = 0;
-        let allCountriesOrder =[]
-        if (document.getElementById("filterContinent") !== 0 || document.getElementById("filterActivity") !== 0) {
-            
-            allCountriesOrder = state.filteredCountries
-        } else {
-            allCountriesOrder = state.countries
-        }
-            
+        let allCountriesOrder =state.filteredCountries
+               
             const orderedCountries = action.payload === 'asc'? allCountriesOrder.sort((a,b)=>{
                 if(a.name > b.name) {return 1;}
                 if(a.name < b.name) {return -1;}
@@ -68,11 +62,12 @@ function  rootReducer (state = initialState, action) {
                 if(a.population > b.population) {return 1;}
                 if(a.population < b.population) {return -1;}
                 return 0;
-            }) : allCountriesOrder.sort((a,b)=>{
+            }) : action.payload === 'popDesc'? allCountriesOrder.sort((a,b)=>{
                 if(a.population > b.population) {return -1;}
                 if(a.population < b.population) {return 1;}
                 return 0;
-            })
+            }) : state.countries;
+
             return({
                 ...state,
                 filteredCountries: orderedCountries
@@ -80,31 +75,26 @@ function  rootReducer (state = initialState, action) {
         
         case 'FILTER_COUNTRIES_BY_CONTINENT':
             let allCountries =[]
-            if (document.getElementById("orderBy") !== 0 || document.getElementById("filterActivity") !== 0) {
-                
-                allCountries = state.filteredCountries
-            } else {
-                allCountries = state.countries
+            if (action.payload.filteredByActivity !== '0') {//tiene un filtro por actividad
+                allCountries = state.countries.filter((e) =>
+                            e.activities && e.activities.map((e) => e.name).includes(action.payload.filteredByActivity))
+                } else { allCountries = state.countries 
             }
 
-            const continentFilter = action.payload ==='all'? allCountries : allCountries.filter(el => el.continent === action.payload)
+            const continentFilter = action.payload.value ==='all'? allCountries : allCountries.filter(el => el.continent === action.payload.value)
             return {
                 ...state,
                 filteredCountries: continentFilter
             }
         case 'FILTER_COUNTRIES_BY_ACTIVITY':
             let allCountriesByActivity =[]
-            if (document.getElementById("orderBy") !== 0 || document.getElementById("filterContinent") !== 0) {
-                
-                allCountriesByActivity = state.filteredCountries
+            if (action.payload.filteredByContinent !== '0') {//tiene un filtro por continente
+                allCountriesByActivity = state.countries.filter(el => el.continent === action.payload.filteredByContinent)
             } else {
                 allCountriesByActivity = state.countries
             }
-        
- 
- 
             const countriesByActivity = allCountriesByActivity.filter((e) =>
-            e.activities && e.activities.map((e) => e.name).includes(action.payload))
+            e.activities && e.activities.map((e) => e.name).includes(action.payload.value))
 
             return {
                 ...state,
@@ -117,7 +107,10 @@ function  rootReducer (state = initialState, action) {
                     filteredCountries : [],
                     activities : [...state.activities, action.payload],
                 }
-
+        case 'DELETE_ACTIVITY':
+                return {
+                    ...state,
+                }
         default:
            return state
     }

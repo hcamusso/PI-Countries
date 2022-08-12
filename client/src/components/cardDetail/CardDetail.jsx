@@ -1,13 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { Link,useParams } from 'react-router-dom'
+import { Link,useParams,useHistory } from 'react-router-dom'
 
-import { getDetail,dismountDetail } from '../../actions/index'
+import { getDetail,dismountDetail,deleteActivity } from '../../actions/index'
 import style from './cardDetail.module.css'
 
 export default function CardDetail(props) {
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const {id} = useParams();
     let countryDetail = useSelector((state) => state.countryDetail)
@@ -62,11 +62,19 @@ export default function CardDetail(props) {
                     <h3>Population: {new Intl.NumberFormat().format(countryDetail.population)} inhabitants</h3>
 
                     {countryDetail.activities?.map(e => 
-                    <div className={style.activities} key={countryDetail.idPais} >
+                    <div className={style.activities} key={countryDetail.idCountry} >
                         <h4><u>Tourist activity</u> {e.name}</h4>
                         <h5><u>Difficulty:</u> {e.dificultad}</h5>
                         <h5><u>Duration:</u> {e.duracion} hours</h5>
                         <h5><u>Season:</u> {e.temporada}</h5>
+                        {/* // boton para delete de una activities */}
+                        <button className={style.btnDelete} onClick={ () => {
+                            let answer = window.confirm("Really do you want to delete this activity?");
+                            if (answer) {
+                                    dispatch(deleteActivity(countryDetail.idCountry,e.ID));
+                                    history.go('/home/'+countryDetail.idCountry);}                    
+                            }}>Delete</button>
+
                     </div>
                         )}          
                 </div>

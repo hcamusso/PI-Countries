@@ -12,11 +12,14 @@ import SearchCountry from '../searchCountry/SearchCountry'
 
 export default function Home() {
     const dispatch = useDispatch()
+    const countries = useSelector(state => state.countries)
     const allCountries = useSelector((state) => state.filteredCountries) // es similar a map.state to props este es el arreglo de todos los countries
     // para el filtro por actividad
     const allActivities = useSelector((state) => state.activities)
     //estado local orden para marcar el cambio de ordenamiento
     const [orden, setOrden] = useState('');
+    const [filterByActivity, setFilterByActivity] = useState('0');
+    const [filterByContinent, setFilterByContinent] = useState('0');
     if (orden) {}//uso orden en un if que no hace nada solo para que no tire el warning
    //creamos estados locales para paginado
     const [currentPage,setCurrentPage]=useState(1)
@@ -43,15 +46,14 @@ export default function Home() {
     useEffect(() => {
         document.getElementById("orderBy").selectedIndex = 0;
         document.getElementById("filterContinent").selectedIndex = 0;
+        setFilterByContinent('0')
         document.getElementById("filterActivity").selectedIndex = 0;
-    } ,[allCountries])  
+        setFilterByActivity('0')
+    } ,[dispatch,countries])  
 
     function handleOrder(e){//manejador del ordenamiento
       e.preventDefault();
       if (e.target.value !== "0") {
-      
-        // document.getElementById("filterContinent").selectedIndex = 0;
-        // document.getElementById("filterActivity").selectedIndex = 0;
         setCurrentPage(1);
         dispatch(oderCountries(e.target.value));
         setOrden(`${e.target.value}`);
@@ -61,24 +63,19 @@ export default function Home() {
     function handleFilterContinent(e){//despacha la accion para filtrar paises por continente
       e.preventDefault();
       if (e.target.value !== "0") {
-        // document.getElementById("orderBy").selectedIndex = 0;
-        // document.getElementById("filterActivity").selectedIndex = 0;
         setCurrentPage(1);
-        dispatch(filterCountriesByContinent(e.target.value));
+        dispatch(filterCountriesByContinent(e.target.value,filterByContinent,filterByActivity));
         setOrden(`${e.target.value}`);
-
+        setFilterByContinent(`${e.target.value}`)
       }
     }
     function handleFilterActivity(e){//despacha la accion para filtrar por actividad
       e.preventDefault();
       if (e.target.value !== "0") {
-        // document.getElementById("orderBy").selectedIndex = 0;
-        // document.getElementById("filterContinent").selectedIndex = 0;
-        
         setCurrentPage(1);
-  
-        dispatch(filterCountriesByActivity(e.target.value));
+        dispatch(filterCountriesByActivity(e.target.value,filterByContinent,filterByActivity));
         setOrden(`${e.target.value}`);
+        setFilterByActivity(`${e.target.value}`)
       }
     }
     function handleChargeAllCountries(e){//carga nuevamente todos los paises
