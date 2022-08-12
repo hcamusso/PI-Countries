@@ -30,8 +30,6 @@ router.post('/', async (req, res, next) => {
 
 })
 
-
-
 // -GET /activity__:
 // Devuelve todas las actividades
 router.get('/', async (req, res) => {
@@ -44,8 +42,19 @@ router.get('/', async (req, res) => {
         res.status(400).send(error)
     }
 });
-// -DELETE/activity params
-// Elimina una actividad que viene solicitada por params.
-// router.delete('/:name/delete', (req, res) => {})
+// -DELETE/activity 
+
+//`http://localhost:3001/activity/${idCountry}/${ID}`
+router.delete('/:idCountry/:ID', async (req, res) => {
+    const { idCountry, ID } = req.params;
+    try {
+        const activity = await Activities.findByPk(ID)
+        const country = await Countries.findByPk(idCountry)
+        await country.removeActivity(activity)
+        res.status(200).json(country)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+});
 
 module.exports = router;
