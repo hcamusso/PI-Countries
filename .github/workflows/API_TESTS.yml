@@ -26,7 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd api
     - run: npm ci
+      working-directory: './api'
     - run: npm run build --if-present
+      working-directory: './api'
     - run: npm test
+      working-directory: './api'
