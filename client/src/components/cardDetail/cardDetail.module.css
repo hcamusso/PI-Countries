@@ -1,0 +1,71 @@
+.detailCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+    margin-top: 20px;
+    border: solid 2px rgba(192, 192, 192, 0.404);
+    width: 40%;
+    height: 50%;
+    padding: 15px;
+    background-color: rgb(0 0 0 / 75%);
+    border-radius: 15px 15px 15px 15px;
+    backdrop-filter: blur(7px);
+}
+
+.detailCard h2{
+    color:  white;
+    font-size: 50px;
+}
+
+.detailCard h3{
+    color:  white;
+}
+
+.flag{
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+}
+
+.btnBack{
+    margin-top: 25px;
+    width: 200px;
+    height: 30px;
+    border-radius: 15px 15px 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;   
+}
+
+.btnBack:hover{
+    background-color: rgba(118, 153, 236, 0.875);
+    transition: all 0.2s ease;  
+    transform: scale(0.95);
+    font-size: 18px;
+    font-weight: 900px;
+}
+.activities{
+    width: 50%;
+    height: 10%;
+    border: solid rgba(255, 0, 0, 0) 1px;
+    color: rgb(243, 243, 243);
+    font-size: 18px;
+    margin-bottom: 5px;
+    background-color: rgba(128, 128, 128, 0.292);
+    border-radius: 10px;
+}
+.activities h4 u{
+    color: rgb(2, 218, 2);
+    text-shadow: rgba(0, 0, 0, 0.528) 2px 2px 2px;
+    letter-spacing: 2px;
+}
+.activities h5 u{
+    color: rgb(152, 152, 152);
+    text-shadow: rgba(0, 0, 0, 0.528) 2px 2px 2px;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+/*RESPONSIVE*/
