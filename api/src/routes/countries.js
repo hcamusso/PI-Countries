@@ -8,6 +8,18 @@ const {Countries, Activities} = require("../db.js");
 router.use(express.json())
 
 // rutas
+// ruta get/countries/name solicitada por el corrector
+router.get("/name", async (req, res) => {  
+        try {
+            const paises = await Countries.findAll({
+              order:[["name"]],
+            });
+            const paisesMap = paises.map(pais => pais.dataValues.name)
+            return res.status(200).json(paisesMap)
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    });
 // - GET /countries__:
 //   - En una primera instancia deberán traer todos los países desde restcountries y guardarlos en su propia base de datos y luego ya utilizarlos desde allí (Debe almacenar solo los datos necesarios para la ruta principal)
 //   - Obtener un listado de los paises.
